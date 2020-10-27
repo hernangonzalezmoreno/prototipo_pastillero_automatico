@@ -20,8 +20,7 @@
 class Motor_28BYJ_48{
 
   public:
-    Motor_28BYJ_48();
-    void iniciar( Delta *, bool );
+    Motor_28BYJ_48( bool );
     bool isOcupado();
     bool moverMediosPasos( int );
     bool moverUnaParte();
@@ -29,12 +28,11 @@ class Motor_28BYJ_48{
     void ejecutar();
 
   private:
-    Delta *pDelta;
     int indexParte = 0;
     bool ocupado = false;
     int cantidadMediosPasos;
     int indexMediosPasos = 0;
-    bool direccionAguajasReloj = true;
+    bool sentidoHorario = true;
     int mediosPasos [ 8 ][ 4 ] = {
       {1, 0, 0, 0},
       {1, 1, 0, 0},

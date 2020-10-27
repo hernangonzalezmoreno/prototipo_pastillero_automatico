@@ -27,12 +27,11 @@ class Controlador{
     byte estado;
     int tiempo;
     Delta *pDelta;
-    Motor_28BYJ_48 motor;
+    Motor_28BYJ_48 *pMotor;
     PulsadorPullup *pPulsadorA, *pPulsadorB, *pPulsadorC;
 
-    Controlador( Delta * );
+    Controlador( Delta *, bool, bool, int, int );
 
-    void iniciar( bool );
     void ejecutar();
     void setLedBuiltin( uint8_t );
 

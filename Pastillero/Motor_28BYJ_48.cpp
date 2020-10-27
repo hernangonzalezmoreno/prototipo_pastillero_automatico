@@ -1,15 +1,11 @@
 #include "Motor_28BYJ_48.h"
 
-Motor_28BYJ_48::Motor_28BYJ_48(){
+Motor_28BYJ_48::Motor_28BYJ_48( bool _sentidoHorario ){
   pinMode(IN1, OUTPUT);
   pinMode(IN2, OUTPUT);
   pinMode(IN3, OUTPUT);
   pinMode(IN4, OUTPUT);
-}
-
-void Motor_28BYJ_48::iniciar( Delta *pD, bool _direccionAguajasReloj ){
-  pDelta = pD;
-  direccionAguajasReloj = _direccionAguajasReloj;
+  sentidoHorario = _sentidoHorario;
 }
 
 bool Motor_28BYJ_48::isOcupado(){
@@ -37,7 +33,7 @@ bool Motor_28BYJ_48::moverMediosPasos( int _cantidadMediosPasos ){
 }
 
 void Motor_28BYJ_48::flip(){
-  direccionAguajasReloj = !direccionAguajasReloj;
+  sentidoHorario = !sentidoHorario;
 }
 
 void Motor_28BYJ_48::ejecutar(){
@@ -54,7 +50,7 @@ void Motor_28BYJ_48::ejecutar(){
 }
 
 void Motor_28BYJ_48::avanzarMerdioPaso(){
-  if( direccionAguajasReloj ){
+  if( sentidoHorario ){
     indexMediosPasos++;
     indexMediosPasos %= 8;
   }else{

@@ -19,21 +19,21 @@ void Calibrador::ejecutar(){
 
   }else if( pControlador->tiempo > 0 ){
 
-    pControlador->motor.moverUnaParte();
-    pControlador->motor.ejecutar();
+    pControlador->pMotor->moverUnaParte();
+    pControlador->pMotor->ejecutar();
     pControlador->tiempo = 0;
 
   }else if( pControlador->pPulsadorB->isPressed() ){
 
-    pControlador->motor.moverMediosPasos(1);
-    pControlador->motor.ejecutar();
+    pControlador->pMotor->moverMediosPasos(1);
+    pControlador->pMotor->ejecutar();
 
   }else if( pControlador->pPulsadorC->isPressed() ){
 
-    pControlador->motor.flip();
-    pControlador->motor.moverMediosPasos(1);
-    pControlador->motor.ejecutar();
-    pControlador->motor.flip();
+    pControlador->pMotor->flip();
+    pControlador->pMotor->moverMediosPasos(1);
+    pControlador->pMotor->ejecutar();
+    pControlador->pMotor->flip();
 
   }
 
