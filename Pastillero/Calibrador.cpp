@@ -11,8 +11,7 @@ void Calibrador::ejecutar(){
 
     pControlador->tiempo += pControlador->pDelta->get();
     if( pControlador->tiempo >= TIEMPO_MAX_CAMBIO_ESTADO ){
-      pControlador->estado = ESTADO_PRODUCCION;
-      pControlador->setLedBuiltin( LOW );
+      pControlador->setEstado( ESTADO_PRODUCCION );
       pControlador->tiempo = 0;
       return;
     }

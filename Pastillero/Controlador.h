@@ -26,17 +26,21 @@ class Controlador{
   public:
     byte estado;
     int tiempo;
+    unsigned long tiempoProduccion, tiempoPrimerPastilla, tiempoPastillas;
     Delta *pDelta;
     Motor_28BYJ_48 *pMotor;
     PulsadorPullup *pPulsadorA, *pPulsadorB, *pPulsadorC;
 
-    Controlador( Delta *, bool, bool, int, int );
+    Controlador( Delta *, bool, bool, unsigned long, unsigned long );
 
-    void ejecutar();
     void setLedBuiltin( uint8_t );
+    void setEstado( byte );
+    void ejecutar();
 
   private:
+    bool primerPastilla;
     Calibrador *pCalibrador;
+    void produccion();
 
 };
 
