@@ -16,6 +16,18 @@ bool Motor_28BYJ_48::isOcupado(){
   return ocupado;
 }
 
+bool Motor_28BYJ_48::moverUnaParte(){
+  bool retorno;
+  if( indexParte < 14 ){
+    retorno = moverMediosPasos( TAMANO_PARTE );
+    if( retorno ) indexParte++;
+  }else{
+    retorno = moverMediosPasos( TAMANO_ULTIMA_PARTE );
+    if( retorno ) indexParte = 0;
+  }
+  return retorno;
+}
+
 bool Motor_28BYJ_48::moverMediosPasos( int _cantidadMediosPasos ){
   if( !ocupado ){
     cantidadMediosPasos = _cantidadMediosPasos;
@@ -24,11 +36,16 @@ bool Motor_28BYJ_48::moverMediosPasos( int _cantidadMediosPasos ){
   }else return false;
 }
 
+void Motor_28BYJ_48::flip(){
+  direccionAguajasReloj = !direccionAguajasReloj;
+}
+
 void Motor_28BYJ_48::ejecutar(){
   if( ocupado ){
 
-    for( int i = 0; i < cantidadMediosPasos; i++ ){
+    while( cantidadMediosPasos > 0 ){
       avanzarMerdioPaso();
+      cantidadMediosPasos--;
     }
 
     ocupado = false;

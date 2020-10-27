@@ -24,10 +24,13 @@ class Motor_28BYJ_48{
     void iniciar( Delta *, bool );
     bool isOcupado();
     bool moverMediosPasos( int );
+    bool moverUnaParte();
+    void flip();
     void ejecutar();
 
   private:
     Delta *pDelta;
+    int indexParte = 0;
     bool ocupado = false;
     int cantidadMediosPasos;
     int indexMediosPasos = 0;

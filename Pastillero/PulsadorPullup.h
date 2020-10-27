@@ -10,7 +10,9 @@
 class PulsadorPullup{
 
   public:
-
+    PulsadorPullup( uint8_t );
+    uint8_t pin;
+    bool isPressed();
 
   private:
 
