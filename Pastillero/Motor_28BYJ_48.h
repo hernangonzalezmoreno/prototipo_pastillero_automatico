@@ -1,0 +1,50 @@
+#ifndef Motor_28BYJ_48_h
+#define Motor_28BYJ_48_h
+
+#if (ARDUINO >=100)
+  #include "Arduino.h"
+#else
+  #include "WProgram.h"
+#endif
+
+#include <Delta.h>
+
+#define IN1  12
+#define IN2  11
+#define IN3  10
+#define IN4  9
+
+#define TAMANO_PARTE 273
+#define TAMANO_ULTIMA_PARTE 274
+
+class Motor_28BYJ_48{
+
+  public:
+    Motor_28BYJ_48();
+    void iniciar( Delta *, bool );
+    bool isOcupado();
+    bool moverMediosPasos( int );
+    void ejecutar();
+
+  private:
+    Delta *pDelta;
+    bool ocupado = false;
+    int cantidadMediosPasos;
+    int indexMediosPasos = 0;
+    bool direccionAguajasReloj = true;
+    int mediosPasos [ 8 ][ 4 ] = {
+      {1, 0, 0, 0},
+      {1, 1, 0, 0},
+      {0, 1, 0, 0},
+      {0, 1, 1, 0},
+      {0, 0, 1, 0},
+      {0, 0, 1, 1},
+      {0, 0, 0, 1},
+      {1, 0, 0, 1}
+    };
+    void avanzarMerdioPaso();
+
+
+};
+
+#endif
