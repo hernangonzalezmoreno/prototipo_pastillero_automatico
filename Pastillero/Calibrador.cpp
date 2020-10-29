@@ -18,8 +18,7 @@ void Calibrador::ejecutar(){
 
   }else if( pControlador->tiempo > 0 ){
 
-    pControlador->pMotor->moverUnaParte();
-    pControlador->pMotor->ejecutar();
+    pControlador->expenderPastilla();
     pControlador->tiempo = 0;
 
   }else if( pControlador->pPulsadorB->isPressed() ){

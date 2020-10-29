@@ -22,6 +22,8 @@ Controlador::Controlador( Delta *pD, bool modoCalibracion, bool sentidoHorario, 
   pPulsadorA = new PulsadorPullup( PULSADOR_A );
   pPulsadorB = new PulsadorPullup( PULSADOR_B );
   pPulsadorC = new PulsadorPullup( PULSADOR_C );
+  pBluetooth = new SoftwareSerial( 2, 3 );//RX,TX
+  pBluetooth->begin( 9600 );
 }
 
 void Controlador::setLedBuiltin( uint8_t valor ){
@@ -70,18 +72,17 @@ void Controlador::produccion(){
   }
 
   if( primerPastilla && tiempoProduccion >= tiempoPrimerPastilla ){
-
     primerPastilla = false;
-    pMotor->moverUnaParte();
-    pMotor->ejecutar();
-    tiempoProduccion = 0;
-
+    expenderPastilla();
   }else if( tiempoProduccion >= tiempoPastillas ){
-
-    pMotor->moverUnaParte();
-    pMotor->ejecutar();
-    tiempoProduccion = 0;
-
+    expenderPastilla();
   }
 
+}
+
+void Controlador::expenderPastilla(){
+  pBluetooth->println( 1 );
+  pMotor->moverUnaParte();
+  pMotor->ejecutar();
+  tiempoProduccion = 0;
 }

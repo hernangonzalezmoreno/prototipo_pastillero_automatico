@@ -11,6 +11,7 @@
 #include "Motor_28BYJ_48.h"
 #include "PulsadorPullup.h"
 #include "Calibrador.h"
+#include <SoftwareSerial.h>
 
 #define ESTADO_CALIBRACION 0x00
 #define ESTADO_PRODUCCION 0x01
@@ -30,12 +31,14 @@ class Controlador{
     Delta *pDelta;
     Motor_28BYJ_48 *pMotor;
     PulsadorPullup *pPulsadorA, *pPulsadorB, *pPulsadorC;
+    SoftwareSerial *pBluetooth;
 
     Controlador( Delta *, bool, bool, unsigned long, unsigned long );
 
     void setLedBuiltin( uint8_t );
     void setEstado( byte );
     void ejecutar();
+    void expenderPastilla();
 
   private:
     bool primerPastilla;
