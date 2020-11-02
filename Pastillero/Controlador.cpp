@@ -1,8 +1,7 @@
 #include "Controlador.h"
 
-Controlador::Controlador( Delta *pD, bool modoCalibracion, bool sentidoHorario, unsigned long _tiempoPrimerPastilla, unsigned long _tiempoPastillas ){
+Controlador::Controlador( bool modoCalibracion, bool sentidoHorario, unsigned long _tiempoPrimerPastilla, unsigned long _tiempoPastillas ){
 
-  pDelta = pD;
   pinMode( LED_BUILTIN, OUTPUT );
 
   if( modoCalibracion ){
@@ -22,7 +21,7 @@ Controlador::Controlador( Delta *pD, bool modoCalibracion, bool sentidoHorario, 
   pPulsadorA = new PulsadorPullup( PULSADOR_A );
   pPulsadorB = new PulsadorPullup( PULSADOR_B );
   pPulsadorC = new PulsadorPullup( PULSADOR_C );
-  pBluetooth = new Bluetooth( pDelta );
+  pBluetooth = new Bluetooth( &delta );
 }
 
 void Controlador::setLedBuiltin( uint8_t valor ){
@@ -40,6 +39,7 @@ void Controlador::setEstado( byte _estado ){
 }
 
 void Controlador::ejecutar(){
+  delta.actualizar( millis() );
 
   switch ( estado ) {
 
@@ -59,11 +59,11 @@ void Controlador::ejecutar(){
 
 void Controlador::produccion(){
 
-  tiempoProduccion += pDelta->get();
+  tiempoProduccion += delta.get();
 
   if( pPulsadorA->isPressed() ){
 
-    tiempo += pDelta->get();
+    tiempo += delta.get();
     if( tiempo >= TIEMPO_MAX_CAMBIO_ESTADO ){
       setEstado( ESTADO_CALIBRACION );
       tiempo = 0;

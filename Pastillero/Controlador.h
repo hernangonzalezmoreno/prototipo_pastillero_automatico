@@ -28,12 +28,12 @@ class Controlador{
     byte estado;
     int tiempo;
     unsigned long tiempoProduccion, tiempoPrimerPastilla, tiempoPastillas;
-    Delta *pDelta;
+    Delta delta;
     Motor_28BYJ_48 *pMotor;
     PulsadorPullup *pPulsadorA, *pPulsadorB, *pPulsadorC;
     Bluetooth *pBluetooth;
 
-    Controlador( Delta *, bool, bool, unsigned long, unsigned long );
+    Controlador( bool, bool, unsigned long, unsigned long );
 
     void setLedBuiltin( uint8_t );
     void setEstado( byte );

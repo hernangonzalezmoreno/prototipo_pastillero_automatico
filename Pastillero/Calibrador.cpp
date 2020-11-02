@@ -9,7 +9,7 @@ void Calibrador::ejecutar(){
 
   if( pControlador->pPulsadorA->isPressed() ){
 
-    pControlador->tiempo += pControlador->pDelta->get();
+    pControlador->tiempo += pControlador->delta.get();
     if( pControlador->tiempo >= TIEMPO_MAX_CAMBIO_ESTADO ){
       pControlador->setEstado( ESTADO_PRODUCCION );
       pControlador->tiempo = 0;
