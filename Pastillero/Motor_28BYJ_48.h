@@ -9,10 +9,10 @@
 
 #include <Delta.h>
 
-#define IN1  12
-#define IN2  11
-#define IN3  10
-#define IN4  9
+#define IN1  9
+#define IN2  10
+#define IN3  11
+#define IN4  12
 
 #define TAMANO_PARTE 273
 #define TAMANO_ULTIMA_PARTE 274

@@ -6,7 +6,8 @@ Bluetooth::Bluetooth( Delta *pD ){
   pSerialBluetooth->begin( 9600 );
 }
 
-void Bluetooth::enviarMsj(){
+void Bluetooth::enviarMsj( byte _msj ){
+  msj = _msj;
   envioActivo = true;
   numeroDeEnvio = 0;
   enviar();
@@ -24,7 +25,7 @@ void Bluetooth::ejecutar(){
 }
 
 void Bluetooth::enviar(){
-  pSerialBluetooth->println( 1 );
+  pSerialBluetooth->println( msj );
   numeroDeEnvio++;
   tiempoEnvio = 0;
 }

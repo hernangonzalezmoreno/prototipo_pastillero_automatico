@@ -70,6 +70,9 @@ void Controlador::produccion(){
       return;
     }
 
+  }else if( tiempo > 0 ){
+    pBluetooth->enviarMsj( 2 );
+    tiempo = 0;
   }
 
   if( primerPastilla && tiempoProduccion >= tiempoPrimerPastilla ){
@@ -82,7 +85,7 @@ void Controlador::produccion(){
 }
 
 void Controlador::expenderPastilla(){
-  pBluetooth->enviarMsj();
+  pBluetooth->enviarMsj( 1 );
   pMotor->moverUnaParte();
   pMotor->ejecutar();
   tiempoProduccion = 0;

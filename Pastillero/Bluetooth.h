@@ -11,19 +11,20 @@
 #include <SoftwareSerial.h>
 
 #define CANTIDAD_DE_ENVIOS 5
-#define TIEMPO_ENTRE_ENVIOS 100
+#define TIEMPO_ENTRE_ENVIOS 50
 
 class Bluetooth{
 
   public:
     Bluetooth( Delta * );
-    void enviarMsj();
+    void enviarMsj( byte );
     void ejecutar();
 
   private:
     Delta *pDelta;
     SoftwareSerial *pSerialBluetooth;
     bool envioActivo = false;
+    byte msj;
     byte numeroDeEnvio = 0;
     int tiempoEnvio = 0;
     void enviar();
