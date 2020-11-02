@@ -1,39 +1,25 @@
-#include <SoftwareSerial.h>
-#include <Delta.h>
+/* Brazalete */
 
-#define LED 8
-#define TIEMPO_MAXIMO 3000
+//------- Parametros de configuracion -------
+#define ALERTA_1 "Fijo"
+#define ALERTA_2 "Parpadeo"
+#define TIEMPO_ALERTA_1 3000
+#define TIEMPO_ALERTA_2 3000
+#define VELOCIDAD_PARPADEO 250
+#define VALOR_ROJO 255
+#define VALOR_VERDE 255
+#define VALOR_AZUL 255
+//-------------------------------------------
 
-Delta delta;
-SoftwareSerial bluetooth( 2, 3 );//RX, TX
+#include "Bluetooth.h"
+#include "TiraDeLed.h"
 
-bool encendido = false;
-int tiempo = 0;
+Bluetooth bluetooth;
+TiraDeLed tiraDeLed( ALERTA_1, ALERTA_2, TIEMPO_ALERTA_1, TIEMPO_ALERTA_2,
+                     VELOCIDAD_PARPADEO, VALOR_ROJO, VALOR_VERDE, VALOR_AZUL );
 
-void setup(){
-  pinMode( LED, OUTPUT );
-  bluetooth.begin( 9600 );
-}
+void setup(){}
 
 void loop(){
-
-  delta.actualizar( millis() );
-
-  if( bluetooth.available() > 0 ){
-    int c = bluetooth.read();
-    if( c == 49 ){// 49 en ASCII es 1
-      digitalWrite( LED, HIGH );
-      encendido = true;
-      tiempo = 0;
-    }
-  }
-
-  if( encendido ){
-    tiempo += delta.get();
-    if( tiempo >= TIEMPO_MAXIMO ){
-      digitalWrite( LED, LOW );
-      encendido = false;
-    }
-  }
-
+  tiraDeLed.ejecutar( bluetooth.ejecutar() );
 }

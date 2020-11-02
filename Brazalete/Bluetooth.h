@@ -13,10 +13,10 @@ class Bluetooth{
 
   public:
     Bluetooth();
+    byte ejecutar();
 
   private:
     SoftwareSerial *pSerialBluetooth;
-
 
 };
 
