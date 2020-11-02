@@ -74,9 +74,9 @@ void TiraDeLed::apagar(){
 }
 
 void TiraDeLed::setHigh(){
-  digitalWrite( PIN_ROJO, rojo );
-  digitalWrite( PIN_VERDE, verde );
-  digitalWrite( PIN_AZUL, azul );
+  analogWrite( PIN_ROJO, rojo );
+  analogWrite( PIN_VERDE, verde );
+  analogWrite( PIN_AZUL, azul );
   encendido = true;
 }
 
