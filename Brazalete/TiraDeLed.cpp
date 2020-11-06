@@ -104,8 +104,6 @@ void TiraDeLed::semiciclo( int tiempoAlerta ){
   int fraccion = tiempoLocal / tiempoFraccion;
   int tiempoLocalFraccion = tiempoLocal - tiempoFraccion * fraccion;
 
-  Serial.println( fraccion );
-
   if( par ){
     switch ( fraccion ) {
       case 0:
