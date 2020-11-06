@@ -33,6 +33,7 @@ class TiraDeLed{
     int tiempo, tiempoAlerta1, tiempoAlerta2, tiempoAlerta3;
     int tiempoParpadeo = 0, velocidadParpadeo;
     byte coloresSemiciclos;
+    bool semicicloRojoAAzul;
     bool encendido = false;
     String alerta1, alerta2, alerta3;
     Delta delta;
@@ -40,8 +41,10 @@ class TiraDeLed{
     void ejecutarAlerta2();
     void ejecutarAlerta3();
     void parpadeo();
+    void semiciclo( int );
     void apagar();
     void setHigh();
+    void setHigh( byte, byte, byte );
     void setLow();
 
 };

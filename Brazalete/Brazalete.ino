@@ -25,7 +25,9 @@ Bluetooth bluetooth;
 TiraDeLed tiraDeLed( ALERTA_1, ALERTA_2, ALERTA_3, TIEMPO_ALERTA_1, TIEMPO_ALERTA_2, TIEMPO_ALERTA_3,
                      VELOCIDAD_PARPADEO, COLORES_SEMICICLOS, VALOR_ROJO, VALOR_VERDE, VALOR_AZUL );
 
-void setup(){}
+void setup(){
+  Serial.begin(9600);
+}
 
 void loop(){
   tiraDeLed.ejecutar( bluetooth.ejecutar() );

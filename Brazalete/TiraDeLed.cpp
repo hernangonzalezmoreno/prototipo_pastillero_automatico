@@ -25,6 +25,7 @@ void TiraDeLed::ejecutar( byte _estado ){
   if( _estado != ESTADO_APAGADO && _estado != estado ){
     estado = _estado;
     tiempo = tiempoParpadeo = 0;
+    semicicloRojoAAzul = true;
   }
 
   switch ( estado ) {
@@ -46,8 +47,10 @@ void TiraDeLed::ejecutarAlerta1(){
 
   if( alerta1.equals( FIJO ) ){
     setHigh();
-  }else{
+  }else if( alerta1.equals( PARPADEO ) ){
     parpadeo();
+  }else{
+    semiciclo( tiempoAlerta1 );
   }
 
   if( tiempo >= tiempoAlerta1 ) apagar();
@@ -58,8 +61,10 @@ void TiraDeLed::ejecutarAlerta2(){
 
   if( alerta2.equals( FIJO ) ){
     setHigh();
-  }else{
+  }else if( alerta2.equals( PARPADEO ) ){
     parpadeo();
+  }else{
+    semiciclo( tiempoAlerta2 );
   }
 
   if( tiempo >= tiempoAlerta2 ) apagar();
@@ -69,7 +74,13 @@ void TiraDeLed::ejecutarAlerta2(){
 void TiraDeLed::ejecutarAlerta3(){
   tiempo += delta.get();
 
-  
+  if( alerta3.equals( FIJO ) ){
+    setHigh();
+  }else if( alerta3.equals( PARPADEO ) ){
+    parpadeo();
+  }else{
+    semiciclo( tiempoAlerta3 );
+  }
 
   if( tiempo >= tiempoAlerta3 ) apagar();
 }
@@ -80,6 +91,53 @@ void TiraDeLed::parpadeo(){
     tiempoParpadeo = 0;
     if( encendido ) setLow(); else setHigh();
   }
+}
+
+void TiraDeLed::semiciclo( int tiempoAlerta ){
+
+  int tiempoSemiciclo = tiempoAlerta / coloresSemiciclos;
+  int ciclo = tiempo / tiempoSemiciclo;
+  int tiempoLocal = tiempo - tiempoSemiciclo * ciclo;
+  bool par = ciclo % 2;
+
+  int tiempoFraccion = tiempoSemiciclo / 4;
+  int fraccion = tiempoLocal / tiempoFraccion;
+  int tiempoLocalFraccion = tiempoLocal - tiempoFraccion * fraccion;
+
+  Serial.println( fraccion );
+
+  if( par ){
+    switch ( fraccion ) {
+      case 0:
+        setHigh( 255, map( tiempoLocalFraccion, 0, tiempoFraccion, 0, 255 ), 0 );
+        break;
+      case 1:
+        setHigh( map( tiempoLocalFraccion, 0, tiempoFraccion, 255, 0 ), 255, 0 );
+        break;
+      case 2:
+        setHigh( 0, 255, map( tiempoLocalFraccion, 0, tiempoFraccion, 0, 255 ) );
+        break;
+      case 3:
+        setHigh( 0, map( tiempoLocalFraccion, 0, tiempoFraccion, 255, 0 ), 255 );
+        break;
+    }
+  }else{
+    switch ( fraccion ) {
+      case 0:
+        setHigh( 0, map( tiempoLocalFraccion, 0, tiempoFraccion, 0, 255 ), 255 );
+        break;
+      case 1:
+        setHigh( 0, 255, map( tiempoLocalFraccion, 0, tiempoFraccion, 255, 0 ) );
+        break;
+      case 2:
+        setHigh( map( tiempoLocalFraccion, 0, tiempoFraccion, 0, 255 ), 255, 0 );
+        break;
+      case 3:
+        setHigh( 255, map( tiempoLocalFraccion, 0, tiempoFraccion, 255, 0 ), 0 );
+        break;
+    }
+  }
+
 }
 
 void TiraDeLed::apagar(){
@@ -93,6 +151,13 @@ void TiraDeLed::setHigh(){
   analogWrite( PIN_ROJO, rojo );
   analogWrite( PIN_VERDE, verde );
   analogWrite( PIN_AZUL, azul );
+  encendido = true;
+}
+
+void TiraDeLed::setHigh( byte r, byte g, byte b ){
+  analogWrite( PIN_ROJO, r );
+  analogWrite( PIN_VERDE, g );
+  analogWrite( PIN_AZUL, b );
   encendido = true;
 }
 
