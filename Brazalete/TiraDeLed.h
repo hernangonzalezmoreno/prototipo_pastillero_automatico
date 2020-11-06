@@ -16,6 +16,7 @@
 #define ESTADO_APAGADO 0x00
 #define ESTADO_ALERTA_1 0x01
 #define ESTADO_ALERTA_2 0x02
+#define ESTADO_ALERTA_3 0x03
 
 #define FIJO "Fijo"
 #define PARPADEO "Parpadeo"
@@ -23,19 +24,21 @@
 class TiraDeLed{
 
   public:
-    TiraDeLed( String, String, int, int, int, byte, byte, byte );
+    TiraDeLed( String, String, String, int, int, int, int, byte, byte, byte, byte );
     void ejecutar( byte );
 
   private:
     byte estado;
     byte rojo, verde, azul;
-    int tiempo, tiempoAlerta1, tiempoAlerta2;
+    int tiempo, tiempoAlerta1, tiempoAlerta2, tiempoAlerta3;
     int tiempoParpadeo = 0, velocidadParpadeo;
+    byte coloresSemiciclos;
     bool encendido = false;
-    String alerta1, alerta2;
+    String alerta1, alerta2, alerta3;
     Delta delta;
     void ejecutarAlerta1();
     void ejecutarAlerta2();
+    void ejecutarAlerta3();
     void parpadeo();
     void apagar();
     void setHigh();

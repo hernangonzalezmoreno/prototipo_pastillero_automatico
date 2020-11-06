@@ -17,6 +17,8 @@ byte Bluetooth::ejecutar(){
         return 1;
       case 50:
         return 2;
+      case 51:
+        return 3;
       default:
         return 0;
     }

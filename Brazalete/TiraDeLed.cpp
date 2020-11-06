@@ -1,14 +1,19 @@
 #include "TiraDeLed.h"
 
-TiraDeLed::TiraDeLed( String _alerta1, String _alerta2, int _tiempoAlerta1, int _tiempoAlerta2, int _velocidadParpadeo, byte _rojo, byte _verde, byte _azul ){
+TiraDeLed::TiraDeLed( String _alerta1, String _alerta2, String _alerta3, int _tiempoAlerta1, int _tiempoAlerta2, int _tiempoAlerta3,
+                      int _velocidadParpadeo, byte _coloresSemiciclos, byte _rojo, byte _verde, byte _azul )
+{
   pinMode( PIN_ROJO, OUTPUT );
   pinMode( PIN_VERDE, OUTPUT );
   pinMode( PIN_AZUL, OUTPUT );
   alerta1 = _alerta1;
   alerta2 = _alerta2;
+  alerta3 = _alerta3;
   tiempoAlerta1 = _tiempoAlerta1;
   tiempoAlerta2 = _tiempoAlerta2;
+  tiempoAlerta3 = _tiempoAlerta3;
   velocidadParpadeo = _velocidadParpadeo;
+  coloresSemiciclos = _coloresSemiciclos;
   rojo = _rojo;
   verde = _verde;
   azul = _azul;
@@ -28,6 +33,9 @@ void TiraDeLed::ejecutar( byte _estado ){
       break;
     case ESTADO_ALERTA_2:
       ejecutarAlerta2();
+      break;
+    case ESTADO_ALERTA_3:
+      ejecutarAlerta3();
       break;
   }
 
@@ -56,6 +64,14 @@ void TiraDeLed::ejecutarAlerta2(){
 
   if( tiempo >= tiempoAlerta2 ) apagar();
 
+}
+
+void TiraDeLed::ejecutarAlerta3(){
+  tiempo += delta.get();
+
+  
+
+  if( tiempo >= tiempoAlerta3 ) apagar();
 }
 
 void TiraDeLed::parpadeo(){
