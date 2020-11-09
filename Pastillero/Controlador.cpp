@@ -73,6 +73,11 @@ void Controlador::produccion(){
   }else if( tiempo > 0 ){
     pBluetooth->enviarMsj( 2 );
     tiempo = 0;
+
+  }else if( pPulsadorB->isPressed() ){
+
+    pBluetooth->enviarMsj( 3 );
+
   }
 
   if( primerPastilla && tiempoProduccion >= tiempoPrimerPastilla ){

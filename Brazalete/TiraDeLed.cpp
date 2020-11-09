@@ -1,7 +1,7 @@
 #include "TiraDeLed.h"
 
 TiraDeLed::TiraDeLed( String _alerta1, String _alerta2, String _alerta3, int _tiempoAlerta1, int _tiempoAlerta2, int _tiempoAlerta3,
-                      int _velocidadParpadeo, byte _coloresSemiciclos, byte _rojo, byte _verde, byte _azul )
+                      int _ritmoParpadeo, byte _coloresSemiciclos, byte _rojo, byte _verde, byte _azul )
 {
   pinMode( PIN_ROJO, OUTPUT );
   pinMode( PIN_VERDE, OUTPUT );
@@ -12,7 +12,7 @@ TiraDeLed::TiraDeLed( String _alerta1, String _alerta2, String _alerta3, int _ti
   tiempoAlerta1 = _tiempoAlerta1;
   tiempoAlerta2 = _tiempoAlerta2;
   tiempoAlerta3 = _tiempoAlerta3;
-  velocidadParpadeo = _velocidadParpadeo;
+  ritmoParpadeo = _ritmoParpadeo;
   coloresSemiciclos = _coloresSemiciclos;
   rojo = _rojo;
   verde = _verde;
@@ -87,7 +87,7 @@ void TiraDeLed::ejecutarAlerta3(){
 
 void TiraDeLed::parpadeo(){
   tiempoParpadeo += delta.get();
-  if( tiempoParpadeo >= velocidadParpadeo ){
+  if( tiempoParpadeo >= ritmoParpadeo ){
     tiempoParpadeo = 0;
     if( encendido ) setLow(); else setHigh();
   }

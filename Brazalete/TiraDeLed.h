@@ -31,7 +31,7 @@ class TiraDeLed{
     byte estado;
     byte rojo, verde, azul;
     int tiempo, tiempoAlerta1, tiempoAlerta2, tiempoAlerta3;
-    int tiempoParpadeo = 0, velocidadParpadeo;
+    int tiempoParpadeo = 0, ritmoParpadeo;
     byte coloresSemiciclos;
     bool semicicloRojoAAzul;
     bool encendido = false;

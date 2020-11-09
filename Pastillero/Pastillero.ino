@@ -1,10 +1,10 @@
 /* Pastillero */
 
 //------- Parametros de configuracion -------
-#define INICIO_MODO_CALIBRACION false //Inicia en modo calibracion
-#define MOTOR_SENTIDO_HORARIO true
-#define TIEMPO_PRIMER_PASTILLA 5000 // 5 segundos (tiempo en milisegundos)
-#define TIEMPO_PASTILLAS 10000 // (tiempo en milisegundos)
+#define INICIO_MODO_CALIBRACION false //Iniciar en modo calibracion. (Presionando 3 segundos el boton A se puede cambiar de modo)
+#define MOTOR_SENTIDO_HORARIO true //Sentido de giro del motor
+#define TIEMPO_PRIMER_PASTILLA 5000 //Tiempo que tarda antes de expender la primer pastilla, en milisegundos
+#define TIEMPO_PASTILLAS 10000 //Tiempo de espera entre pastilla y pastilla, en milisegundos
 //-------------------------------------------
 
 #include "Controlador.h"
